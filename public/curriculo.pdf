@@ -1,0 +1,37 @@
+%PDF-1.4
+1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
+2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj
+3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> >> >> >> endobj
+4 0 obj << /Length 530 >>
+stream
+BT
+/F1 22 Tf
+50 720 Td
+(Luiz Guilherme Campos Rodrigues da Silva) Tj
+/F1 13 Tf
+0 -30 Td
+(Desenvolvedor Full-Stack | PHP - Laravel - React - Next.js - Docker) Tj
+0 -20 Td
+(Uberaba, MG | luizgdev@outlook.com) Tj
+0 -20 Td
+(LinkedIn: /in/luiz-guilherme-campos-rodrigues-da-silva-101723226) Tj
+0 -20 Td
+(GitHub: github.com/guihard1) Tj
+/F1 11 Tf
+0 -40 Td
+(Associacao Brasileira dos Criadores de Girolando - Desenvolvedor Full-Stack) Tj
+0 -20 Td
+(Para a versao oficial mais recente, substitua este arquivo em public/curriculo.pdf) Tj
+ET
+endstream endobj
+xref
+0 5
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000261 00000 n 
+trailer << /Size 5 /Root 1 0 R >>
+startxref
+834
+%%EOF

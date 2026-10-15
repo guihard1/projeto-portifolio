@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+/* Dark mode controlled by a `.dark` class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Helvetica Neue", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --color-paper: #f4f4f1;
+  --color-ink: #0b0b0b;
+  --ease-expo: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+html.dark {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Hide the native cursor on devices with a precise pointer (we render our own) */
+@media (pointer: fine) {
+  html,
+  a,
+  button,
+  [data-cursor] {
+    cursor: none;
+  }
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+html.dark ::selection {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
