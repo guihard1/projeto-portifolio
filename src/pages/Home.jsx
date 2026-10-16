@@ -67,7 +67,7 @@ export default function Home() {
   const [imgError, setImgError] = useState(false)
 
   return (
-    <div className="px-4 sm:px-6 md:px-10 max-w-full overflow-hidden">
+    <div className="px-4 sm:px-6 md:px-10 max-w-full">
       {/* Hero Section */}
       <section className="flex min-h-screen flex-col justify-end pb-16 pt-32">
         <span className="text-xs uppercase tracking-widest opacity-50 block mb-4 font-mono">

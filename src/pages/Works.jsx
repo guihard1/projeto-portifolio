@@ -18,12 +18,12 @@ function ProjectMedia({ project, index, onActive, onOpenLightbox }) {
   }, [inView, index, onActive])
 
   return (
-    <div ref={ref} className="flex min-h-[auto] sm:min-h-screen items-center justify-center py-6 sm:py-16">
-      <div className="w-full max-w-full sm:max-w-none min-w-0">
+    <div ref={ref} className="flex min-h-0 md:min-h-screen items-center justify-center py-8 md:py-0">
+      <div className="w-full max-w-full md:max-w-none min-w-0">
         {/* Card visual mockup */}
         <motion.div
           data-cursor
-          className={`group relative min-h-[440px] sm:min-h-0 sm:aspect-[4/5] w-full overflow-hidden rounded-2xl border border-current/15 bg-gradient-to-br ${project.gradient} p-4 sm:p-7 text-white shadow-2xl flex flex-col justify-between`}
+          className={`group relative min-h-[440px] md:min-h-0 md:aspect-[4/5] w-full overflow-hidden rounded-2xl border border-current/15 bg-gradient-to-br ${project.gradient} p-4 sm:p-7 text-white shadow-2xl flex flex-col justify-between`}
           animate={{
             opacity: inView ? 1 : 0.45,
             scale: inView ? 1 : 0.97,
@@ -222,7 +222,7 @@ export default function Works() {
   }, [])
 
   return (
-    <div className="px-4 sm:px-6 md:px-10 max-w-full overflow-hidden">
+    <div className="px-4 sm:px-6 md:px-10 max-w-full">
       {/* Editorial Header */}
       <header className="pb-12 sm:pb-16 pt-28 sm:pt-36 border-b border-current/15">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6">

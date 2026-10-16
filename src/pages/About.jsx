@@ -34,7 +34,7 @@ export default function About() {
   }
 
   return (
-    <div className="px-4 sm:px-6 md:px-10 max-w-full overflow-hidden">
+    <div className="px-4 sm:px-6 md:px-10 max-w-full">
       <section className="flex min-h-[75vh] flex-col justify-end gap-10 pb-20 pt-36">
         <span className="text-xs uppercase tracking-widest opacity-50 block font-mono">
           (Trajetória &amp; Perfil Profissional)
