@@ -242,7 +242,7 @@ export default function Works() {
         </div>
       </header>
 
-      <div className="grid md:grid-cols-2 md:gap-16">
+      <div className="grid md:grid-cols-2 md:gap-16 mt-10">
         {/* Left: scrolling media */}
         <div>
           {projects.map((p, i) => (
