@@ -10,30 +10,29 @@ function ProjectCardImage({ project }) {
 
   if (project.mockupType === 'terminal') {
     return (
-      <div className="flex h-full w-full flex-col justify-between p-3.5 sm:p-4 bg-[#0a0b0d] font-mono text-left">
-        <div className="flex items-center gap-1.5 text-[10px] text-emerald-400/90 border-b border-white/10 pb-1.5">
+      <div className="flex h-full w-full flex-col justify-between bg-[#0a0b0d] p-4 font-mono text-[11px]">
+        <div className="flex items-center gap-2 border-b border-white/10 pb-1.5 text-emerald-400">
           <span className="text-white/40">$</span>
-          <span className="truncate">php artisan girolando:dispatch-docs</span>
-          <span className="size-1 rounded-full bg-emerald-400 animate-pulse ml-auto" />
+          <span>php artisan girolando:dispatch-docs</span>
         </div>
-        <div className="space-y-1 my-auto">
-          {project.pipeline?.slice(0, 4).map((p, idx) => (
-            <div key={idx} className="flex items-center gap-1.5 text-[9px] sm:text-[10px]">
-              <span className="text-white/30">›</span>
+        <div className="my-auto space-y-1 py-1">
+          {project.pipeline?.slice(0, 3).map((p, idx) => (
+            <div key={idx} className="flex items-center gap-2 text-[10px]">
+              <span className="text-white/40">›</span>
               <span className="text-white/70 truncate flex-1">{p.text}</span>
-              <span className={`font-semibold ${p.color}`}>[{p.status}]</span>
+              <span className={p.color}>[{p.status}]</span>
             </div>
           ))}
         </div>
-        <div className="pt-1.5 border-t border-white/10 flex items-center justify-between text-[9px] text-white/40">
-          <span>Worker ativo</span>
-          <span className="text-emerald-400 font-semibold">25 docs/mês</span>
+        <div className="border-t border-white/10 pt-1 text-[9px] text-white/40 flex justify-between">
+          <span>Worker Daemon</span>
+          <span className="text-emerald-400">25 docs/mês</span>
         </div>
       </div>
     )
   }
 
-  if (!error && project.image) {
+  if (project.image && !error) {
     return (
       <img
         src={project.image}
@@ -58,7 +57,9 @@ function ProjectCardImage({ project }) {
       <span className="text-[11px] font-mono uppercase tracking-widest opacity-50 block mb-1">
         {project.context}
       </span>
-      <span className="text-sm font-medium opacity-90 max-w-[200px]">{project.title}</span>
+      <span className="text-sm font-medium tracking-tight text-white max-w-[200px] truncate">
+        {project.title}
+      </span>
     </div>
   )
 }
@@ -68,7 +69,6 @@ export default function Home() {
 
   return (
     <div className="px-4 sm:px-6 md:px-10 max-w-full">
-      {/* Hero Section */}
       <section className="flex min-h-screen flex-col justify-end pb-16 pt-32">
         <span className="text-xs uppercase tracking-widest opacity-50 block mb-4 font-mono">
           (Portfolio &amp; Desenvolvimento de Software)
@@ -90,16 +90,11 @@ export default function Home() {
           </FadeUp>
 
           <FadeUp delay={0.5} className="flex items-center gap-6 text-xs sm:text-sm font-mono">
-            {/*<span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-emerald-600 dark:text-emerald-400">*/}
-            {/*  <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />*/}
-            {/*  {profile.status}*/}
-            {/*</span>*/}
             <span className="opacity-50 hidden sm:inline">Scroll ↓</span>
           </FadeUp>
         </div>
       </section>
 
-      {/* Strategic Intro Section */}
       <section className="grid gap-12 py-32 md:py-40 md:grid-cols-12 border-t border-current/15">
         <FadeUp className="text-xs uppercase tracking-widest opacity-50 font-mono md:col-span-3">
           (Visão &amp; Atuação)
@@ -116,7 +111,6 @@ export default function Home() {
             </p>
           </FadeUp>
 
-          {/* 3 Core Value Pillars */}
           <div className="mt-12 grid gap-6 sm:grid-cols-3 pt-8 border-t border-current/10">
             <FadeUp delay={0.25} className="flex flex-col gap-2">
               <div className="flex items-center gap-2 text-xs font-mono tracking-wider uppercase opacity-50">
@@ -154,13 +148,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Profile & Technical Stack Section */}
       <section className="grid gap-10 pb-32 md:pb-40 md:grid-cols-12 border-t border-current/15 pt-16">
-        {/* Left Column: Developer Profile Presence Card (With photo support) */}
         <div className="md:col-span-5">
           <MaskReveal className="aspect-[4/5] w-full">
             <div className="relative flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border border-current/20 bg-neutral-900 p-8 text-neutral-100 shadow-2xl">
-              {/* Optional Profile Photo if added to /avatar.jpg */}
               {!imgError && (
                 <img
                   src="/avatar.jpg"
@@ -170,10 +161,8 @@ export default function Home() {
                 />
               )}
 
-              {/* Gradient overlay for readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20 pointer-events-none" />
 
-              {/* Card Header */}
               <div className="relative z-10 flex items-center justify-between text-xs font-mono">
                 <span className="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md px-3 py-1">
                   <span className="size-2 rounded-full bg-emerald-400" />
@@ -182,7 +171,6 @@ export default function Home() {
                 <span className="opacity-60">{profile.location}</span>
               </div>
 
-              {/* Card Center Identity Fallback (if avatar isn't provided) */}
               {imgError && (
                 <div className="relative z-10 my-auto flex flex-col items-center justify-center text-center">
                   <div className="mb-4 flex size-20 items-center justify-center rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md">
@@ -194,7 +182,6 @@ export default function Home() {
                 </div>
               )}
 
-              {/* Card Footer Info */}
               <div className="relative z-10 pt-6">
                 <h3 className="text-2xl font-medium tracking-tight text-white">
                   {profile.name}
@@ -207,7 +194,6 @@ export default function Home() {
           </MaskReveal>
         </div>
 
-        {/* Right Column: Complete Technical Expertise */}
         <div className="flex flex-col justify-between gap-10 md:col-span-7 md:pl-6">
           <div>
             <FadeUp>
@@ -250,7 +236,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Works Section */}
       <section className="py-24 md:py-32 border-t border-current/15">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
           <div>
@@ -285,7 +270,6 @@ export default function Home() {
                 </span>
               </div>
 
-              {/* Browser Preview Frame */}
               <div className="overflow-hidden rounded-xl border border-white/15 bg-neutral-950/90 shadow-2xl backdrop-blur-md mb-6 transition-all duration-500 group-hover:border-white/30">
                 <div className="flex items-center justify-between border-b border-white/10 px-3 py-2 bg-white/[0.03]">
                   <div className="flex items-center gap-1.5">
@@ -321,7 +305,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Works Banner CTA */}
       <section className="py-32 md:py-40 border-t border-current/15">
         <Link
           to="/works"

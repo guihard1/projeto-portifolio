@@ -3,7 +3,6 @@ import { motion, useInView } from 'framer-motion'
 
 const EASE = [0.22, 1, 0.36, 1]
 
-/** Fade-up on scroll. */
 export function FadeUp({ children, delay = 0, className = '', as = 'div' }) {
   const Tag = motion[as]
   return (
@@ -19,11 +18,6 @@ export function FadeUp({ children, delay = 0, className = '', as = 'div' }) {
   )
 }
 
-/**
- * Text revealed from behind a mask.
- * The *outer* (unclipped) span is observed: observing the translated inner span
- * would never intersect, because the mask's overflow clips it out of view.
- */
 export function MaskText({ children, className = '', delay = 0 }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '0px 0px -40px 0px' })
@@ -45,11 +39,6 @@ export function MaskText({ children, className = '', delay = 0 }) {
   )
 }
 
-/**
- * Image/block revealed with an inset clip-path mask + subtle scale.
- * `className` (size/aspect/grid placement) goes on the unclipped outer wrapper,
- * which is the element observed for visibility.
- */
 export function MaskReveal({ children, className = '' }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '0px 0px -40px 0px' })

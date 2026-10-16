@@ -38,7 +38,6 @@ export default function Navbar() {
         </Link>
       </Magnetic>
 
-      {/* Live timezone indicator (Awwwards staple) */}
       <div className="pointer-events-auto hidden md:flex items-center gap-2 font-mono text-xs opacity-60">
         <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
         <span>Uberaba, BR</span>

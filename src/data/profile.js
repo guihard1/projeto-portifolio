@@ -1,5 +1,3 @@
-// Single source of truth for portfolio content & professional positioning
-
 export const profile = {
   name: 'Luiz Guilherme',
   surname: 'Campos Rodrigues da Silva',
@@ -14,19 +12,15 @@ export const profile = {
   status: 'Disponível para novas oportunidades',
   availability: 'Aberto a novos projetos e posições Full-Stack',
 
-  // Hero statement
   headline: 'Desenvolvimento Full-Stack focado em modernização de sistemas legados, código estruturado e interfaces eficientes.',
 
-  // Strategic intro narrative for recruiters & heads
   introTitle: 'Back-end estruturado e resiliente. Front-end moderno e funcional.',
   introText:
     'Atuação focada em resolver gargalos operacionais e modernizar aplicações no dia a dia corporativo. Combino o ecossistema PHP (Laravel, Filament, PDO e MVC) com interfaces em React e Next.js utilizando Tailwind CSS. Na Associação Brasileira dos Criadores de Girolando — entidade de alcance nacional e referência no agronegócio —, atuo na conteinerização local com Docker, refatoração de código legado e automações com DomPDF que agilizam processos internos essenciais para colaboradores e associados em todo o Brasil.',
 
-  // Comprehensive profile summary for About page
   summary:
     'Desenvolvedor Full-Stack com sólida experiência em modernização de sistemas, refatoração de código legado e desenvolvimento de soluções práticas e escaláveis. Atuo na Associação Brasileira dos Criadores de Girolando (entidade nacional do agronegócio), desenvolvendo painéis administrativos robustos (Laravel Filament e Next.js), automação de processos documentais e padronização de ambientes de desenvolvimento local com Docker e Docker Compose. Foco permanente na integridade dos dados, boas práticas estruturais (MVC, POO, ACL) e entrega de interfaces responsivas.',
 
-  // Operational highlights & metrics
   metrics: [
     { value: 'Docker', label: 'Ambiente local conteinerizado e isolado com Docker Compose' },
     { value: '25+', label: 'Cadastros mensais gerados em PDF e enviados sem edição manual' },

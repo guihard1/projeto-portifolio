@@ -10,8 +10,6 @@ function AnimatedRoutes() {
   const location = useLocation()
 
   return (
-    // NOTE: do not use initial={false} here: it also disables the `initial`
-    // state of every motion element inside the first page (scroll reveals).
     <AnimatePresence mode="sync">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<PageTransition><Home /></PageTransition>} />

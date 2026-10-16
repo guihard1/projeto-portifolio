@@ -5,7 +5,6 @@ import { profile, projects } from '../data/profile'
 
 const icons = [Layers, Database, Sparkles, Code2]
 
-/** One project's media card. Reports itself active when it crosses viewport center. */
 function ProjectMedia({ project, index, onActive, onOpenLightbox }) {
   const ref = useRef(null)
   const inView = useInView(ref, { margin: '-35% 0px -35% 0px' })
@@ -20,7 +19,6 @@ function ProjectMedia({ project, index, onActive, onOpenLightbox }) {
   return (
     <div ref={ref} className="flex min-h-0 md:min-h-screen items-center justify-center py-8 md:py-0">
       <div className="w-full max-w-full md:max-w-none min-w-0">
-        {/* Card visual mockup */}
         <motion.div
           data-cursor
           className={`group relative min-h-[440px] md:min-h-0 md:aspect-[4/5] w-full overflow-hidden rounded-2xl border border-current/15 bg-gradient-to-br ${project.gradient} p-4 sm:p-7 text-white shadow-2xl flex flex-col justify-between`}
@@ -30,7 +28,6 @@ function ProjectMedia({ project, index, onActive, onOpenLightbox }) {
           }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* Card Topbar */}
           <div className="flex items-center justify-between text-xs tracking-wider uppercase opacity-80 z-20 gap-2">
             <div className="flex items-center gap-2 shrink-0">
               <span className="size-2 rounded-full" style={{ backgroundColor: project.accentColor || '#38bdf8' }} />
@@ -41,17 +38,14 @@ function ProjectMedia({ project, index, onActive, onOpenLightbox }) {
             </span>
           </div>
 
-          {/* Central Stage: High-end Browser Frame */}
           <div className="my-auto w-full z-10 py-2.5 sm:py-4">
             <div className="overflow-hidden rounded-xl border border-white/15 bg-neutral-950/90 shadow-2xl backdrop-blur-md transition-all duration-500 group-hover:border-white/30">
-              {/* Browser Header Bar */}
               <div className="flex items-center justify-between border-b border-white/10 px-3 py-2 sm:px-3.5 sm:py-2.5 bg-white/[0.03]">
                 <div className="flex items-center gap-1.5 shrink-0">
                   <span className="size-2 sm:size-2.5 rounded-full bg-red-500/70" />
                   <span className="size-2 sm:size-2.5 rounded-full bg-yellow-500/70" />
                   <span className="size-2 sm:size-2.5 rounded-full bg-emerald-500/70" />
                 </div>
-                {/* URL Pill */}
                 <div className="flex items-center gap-1.5 rounded-md border border-white/10 bg-black/40 px-2 sm:px-3 py-0.5 text-[10px] sm:text-[11px] font-mono opacity-70 min-w-0 mx-2">
                   <Globe size={11} className="opacity-60 shrink-0" />
                   <span className="truncate max-w-[110px] xs:max-w-[160px] sm:max-w-[220px]">{project.mockupUrl || 'localhost:3000'}</span>
@@ -61,17 +55,14 @@ function ProjectMedia({ project, index, onActive, onOpenLightbox }) {
                 </div>
               </div>
 
-              {/* Viewport Canvas: Terminal View, Real Screenshot, or Styled Wireframe Fallback */}
               {project.mockupType === 'terminal' ? (
                 <div className="relative aspect-auto sm:aspect-[16/10] w-full overflow-hidden bg-[#0a0b0d] p-3 sm:p-5 flex flex-col justify-between font-mono min-h-[220px]">
-                  {/* Command prompt */}
                   <div className="flex items-center gap-2 text-[10px] sm:text-xs text-emerald-400/90 border-b border-white/10 pb-2">
                     <span className="text-white/40">$</span>
                     <span className="text-white/90 truncate">php artisan girolando:dispatch-docs</span>
                     <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse ml-auto shrink-0" />
                   </div>
 
-                  {/* Execution pipeline */}
                   <div className="space-y-1.5 sm:space-y-2 my-auto py-2">
                     {project.pipeline?.map((p, idx) => (
                       <div key={idx} className="flex items-center gap-1.5 sm:gap-2 text-[9px] sm:text-[11px] leading-tight">
@@ -85,7 +76,6 @@ function ProjectMedia({ project, index, onActive, onOpenLightbox }) {
                     ))}
                   </div>
 
-                  {/* Terminal footer status */}
                   <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[9px] sm:text-[10px] text-white/40">
                     <span className="flex items-center gap-1.5">
                       <span className="size-1.5 rounded-full bg-emerald-500 animate-ping" />
@@ -114,21 +104,19 @@ function ProjectMedia({ project, index, onActive, onOpenLightbox }) {
                           project.isLongScreenshot
                             ? 'long-screenshot-img'
                             : project.imageFit === 'contain'
-                            ? 'h-full w-full object-contain object-center p-1.5 transition-transform duration-700 ease-out group-hover:scale-[1.02]'
+                            ? 'h-full w-full object-contain object-center p-1 sm:p-1.5 transition-transform duration-700 ease-out group-hover:scale-[1.02]'
                             : 'h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105'
                         }
                         onError={() => setImgError(true)}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-40 group-hover:opacity-10 transition-opacity pointer-events-none" />
 
-                      {/* Interactive hint for tall full-page screenshots */}
                       {project.isLongScreenshot ? (
                         <div className="pointer-events-none absolute bottom-2 right-2 sm:bottom-3 sm:right-3 z-20 flex items-center gap-1.5 rounded-full border border-white/20 bg-black/70 px-2 sm:px-2.5 py-1 text-[9px] sm:text-[10px] font-mono backdrop-blur-md transition-opacity duration-300 group-hover:opacity-0 text-white/90">
                           <span className="size-1.5 rounded-full bg-sky-400 animate-pulse" />
                           <span>Hover p/ rolar ↓</span>
                         </div>
                       ) : (
-                        /* Expand button badge for standard screenshots */
                         <div className="pointer-events-none absolute bottom-2 right-2 sm:bottom-2.5 sm:right-2.5 z-20 flex items-center gap-1 rounded-md border border-white/20 bg-black/75 px-2 py-0.5 text-[9px] sm:text-[10px] font-mono opacity-0 transition-opacity duration-300 group-hover:opacity-100 text-white/90">
                           <Maximize2 size={10} />
                           <span>Expandir</span>
@@ -136,35 +124,33 @@ function ProjectMedia({ project, index, onActive, onOpenLightbox }) {
                       )}
                     </>
                   ) : (
-                  /* Stylized Technical Wireframe Fallback */
-                  <div className="flex h-full w-full flex-col items-center justify-center p-4 sm:p-6 text-center relative overflow-hidden">
-                    <div
-                      className="absolute -top-12 -right-12 size-40 rounded-full blur-3xl opacity-20 pointer-events-none"
-                      style={{ backgroundColor: project.accentColor || '#38bdf8' }}
-                    />
-                    <div
-                      className="mb-2 sm:mb-3 flex size-10 sm:size-14 items-center justify-center rounded-xl border border-white/20 bg-white/5 backdrop-blur-md transition-transform duration-500 group-hover:scale-110"
-                      style={{ color: project.accentColor || '#fff' }}
-                    >
-                      <Icon size={22} strokeWidth={1.5} />
+                    <div className="flex h-full w-full flex-col items-center justify-center p-4 sm:p-6 text-center relative overflow-hidden">
+                      <div
+                        className="absolute -top-12 -right-12 size-40 rounded-full blur-3xl opacity-20 pointer-events-none"
+                        style={{ backgroundColor: project.accentColor || '#38bdf8' }}
+                      />
+                      <div
+                        className="mb-2 sm:mb-3 flex size-10 sm:size-14 items-center justify-center rounded-xl border border-white/20 bg-white/5 backdrop-blur-md transition-transform duration-500 group-hover:scale-110"
+                        style={{ color: project.accentColor || '#fff' }}
+                      >
+                        <Icon size={22} strokeWidth={1.5} />
+                      </div>
+                      <h4 className="text-xs sm:text-base font-medium tracking-tight text-white max-w-xs truncate px-2">
+                        {project.title}
+                      </h4>
+                      <p className="mt-0.5 sm:mt-1 text-[9px] sm:text-[10px] font-mono opacity-50 uppercase tracking-widest">
+                        {project.context}
+                      </p>
+                      <div className="mt-2 sm:mt-3 flex items-center gap-1 text-[9px] sm:text-[10px] font-mono opacity-40 rounded-full border border-white/10 px-2 sm:px-2.5 py-0.5 max-w-[210px] truncate">
+                        <span className="truncate">Screenshot: {project.image}</span>
+                      </div>
                     </div>
-                    <h4 className="text-xs sm:text-base font-medium tracking-tight text-white max-w-xs truncate px-2">
-                      {project.title}
-                    </h4>
-                    <p className="mt-0.5 sm:mt-1 text-[9px] sm:text-[10px] font-mono opacity-50 uppercase tracking-widest">
-                      {project.context}
-                    </p>
-                    <div className="mt-2 sm:mt-3 flex items-center gap-1 text-[9px] sm:text-[10px] font-mono opacity-40 rounded-full border border-white/10 px-2 sm:px-2.5 py-0.5 max-w-[210px] truncate">
-                      <span className="truncate">Screenshot: {project.image}</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Card Bottom: Quick Stack Badges */}
           <div className="pt-2 sm:pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs z-20">
             <span className="opacity-70 font-mono text-[10px] sm:text-[11px] truncate max-w-[190px] xs:max-w-[230px] sm:max-w-none">
               {project.tags.slice(0, 3).join(' · ')}
@@ -173,7 +159,6 @@ function ProjectMedia({ project, index, onActive, onOpenLightbox }) {
           </div>
         </motion.div>
 
-        {/* Mobile: description sits under the media */}
         <div className="mt-6 md:hidden">
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs opacity-60 font-mono">
             <span className="font-semibold text-current opacity-90">0{project.id} / 0{projects.length}</span>
@@ -212,7 +197,6 @@ export default function Works() {
   const [lightboxProject, setLightboxProject] = useState(null)
   const project = projects[active]
 
-  // Close lightbox on Escape key
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === 'Escape') setLightboxProject(null)
@@ -223,7 +207,6 @@ export default function Works() {
 
   return (
     <div className="px-4 sm:px-6 md:px-10 max-w-full">
-      {/* Editorial Header */}
       <header className="pb-12 sm:pb-16 pt-28 sm:pt-36 border-b border-current/15">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6">
           <div>
@@ -243,7 +226,6 @@ export default function Works() {
       </header>
 
       <div className="grid md:grid-cols-2 md:gap-16 mt-10">
-        {/* Left: scrolling media */}
         <div>
           {projects.map((p, i) => (
             <ProjectMedia
@@ -256,7 +238,6 @@ export default function Works() {
           ))}
         </div>
 
-        {/* Right: pinned description with smooth crossfade */}
         <aside className="hidden md:block">
           <div className="sticky top-0 flex h-screen items-center">
             <div className="relative h-[32rem] w-full">
@@ -313,7 +294,6 @@ export default function Works() {
         </aside>
       </div>
 
-      {/* Lightbox Modal for Full Screenshot Inspection */}
       <AnimatePresence>
         {lightboxProject && (
           <motion.div
@@ -332,7 +312,6 @@ export default function Works() {
               className="relative max-h-[92vh] max-w-6xl w-full overflow-hidden rounded-2xl border border-white/20 bg-neutral-950 shadow-2xl flex flex-col cursor-default"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Modal Header */}
               <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 sm:px-5 sm:py-3.5 bg-white/[0.04] gap-2">
                 <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
                   <span
@@ -353,7 +332,6 @@ export default function Works() {
                 </button>
               </div>
 
-              {/* Modal Image Body */}
               <div className="overflow-auto max-h-[calc(90vh-55px)] p-3 sm:p-6 flex items-center justify-center bg-black/90">
                 <img
                   src={lightboxProject.image}

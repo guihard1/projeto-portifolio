@@ -1,4 +1,3 @@
-// Module-level store: the point (in viewport px) where the next page should expand from.
 let origin = null
 
 export function setTransitionOrigin(x, y) {

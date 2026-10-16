@@ -1,16 +1,11 @@
 import { useRef } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 
-/**
- * Magnetic component: gently pulls element toward the mouse pointer on hover.
- * Distinctive Awwwards micro-interaction for buttons and CTAs.
- */
 export default function Magnetic({ children, strength = 0.3, className = '' }) {
   const ref = useRef(null)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
 
-  // Spring with crisp recovery and organic damping
   const springConfig = { damping: 16, stiffness: 180, mass: 0.15 }
   const springX = useSpring(x, springConfig)
   const springY = useSpring(y, springConfig)

@@ -5,7 +5,6 @@ import { motion, useMotionValue, useSpring } from 'framer-motion'
 const TRAIL_LENGTH = 18
 const INTERACTIVE = 'a, button, input, textarea, select, [data-cursor]'
 
-/** R3F trail: a chain of discs, each easing toward the one before it. */
 function Trail({ mouse, hovered, visible }) {
   const size = useThree((s) => s.size)
   const meshes = useRef([])
@@ -20,7 +19,6 @@ function Trail({ mouse, hovered, visible }) {
     const m = mouse.current
     const isVis = visible.current && m.active
 
-    // Screen px -> orthographic world (1 unit = 1px, origin at center, y up)
     const tx = m.x - size.width / 2
     const ty = -(m.y - size.height / 2)
 
@@ -48,7 +46,6 @@ function Trail({ mouse, hovered, visible }) {
       const t = 1 - i / TRAIL_LENGTH
       mesh.position.set(p.x, p.y, 0)
       mesh.scale.setScalar(Math.max(0.5, 8 * t * boost.current))
-      // Fade out smoothly if cursor leaves window or isn't active
       const targetOpacity = isVis ? t * 0.5 : 0
       mesh.material.opacity += (targetOpacity - mesh.material.opacity) * 0.2
     })
@@ -74,13 +71,11 @@ export default function CustomCursor() {
   const hoveredRef = useRef(false)
   const visibleRef = useRef(false)
 
-  // Highly responsive, organic spring configuration
   const x = useMotionValue(-100)
   const y = useMotionValue(-100)
   const sx = useSpring(x, { stiffness: 850, damping: 50, mass: 0.22 })
   const sy = useSpring(y, { stiffness: 850, damping: 50, mass: 0.22 })
 
-  // Only on devices with a fine pointer (mouse / trackpad)
   useEffect(() => {
     const mq = window.matchMedia('(pointer: fine)')
     const update = () => setEnabled(mq.matches)

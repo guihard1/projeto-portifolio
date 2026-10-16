@@ -7,11 +7,6 @@ import { getTransitionOrigin, resetTransitionOrigin } from '../hooks/useTransiti
 const EASE = [0.65, 0, 0.35, 1]
 const DURATION = 0.85
 
-/**
- * "Modal expansion": the incoming page is revealed through a circle that grows
- * from the click point until it fills the whole screen. The outgoing page is
- * frozen in place (fixed, offset by its scroll position) underneath.
- */
 export default function PageTransition({ children }) {
   const isPresent = useIsPresent()
   const lenis = useLenis()
@@ -27,7 +22,6 @@ export default function PageTransition({ children }) {
     return { ...o, radius: Math.ceil(Math.hypot(dx, dy)) + 8 }
   })
 
-  // Track scroll of the visible page so we can freeze it when it exits
   useEffect(() => {
     const onScroll = () => {
       if (presentRef.current) lastScroll.current = window.scrollY
@@ -37,13 +31,11 @@ export default function PageTransition({ children }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // New page always starts at the top
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
     lenis?.scrollTo(0, { immediate: true, force: true })
     resetTransitionOrigin()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [lenis])
 
   return (
     <motion.div
@@ -57,8 +49,6 @@ export default function PageTransition({ children }) {
       initial={{ clipPath: `circle(0px at ${x}px ${y}px)` }}
       animate={{
         clipPath: `circle(${radius}px at ${x}px ${y}px)`,
-        // Remove the clip once fully expanded so tall pages aren't cut off
-        // (and IntersectionObserver can see content below the first viewport)
         transitionEnd: { clipPath: 'none' },
       }}
       exit={{ filter: 'brightness(0.55)' }}

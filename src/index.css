@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* Dark mode controlled by a `.dark` class on <html> */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
@@ -26,7 +25,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Hide the native cursor on devices with a precise pointer (we render our own) */
 @media (pointer: fine) {
   html,
   a,
@@ -50,18 +48,15 @@ html.dark ::selection {
   color: var(--color-ink);
 }
 
-/* Smooth hover-scroll for tall full-page screenshots */
 .long-screenshot-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top;
-  /* Smooth return to top when unhovering */
   transition: object-position 3.5s ease-out;
 }
 
 .group:hover .long-screenshot-img {
   object-position: bottom;
-  /* Gentle, readable pace on hover */
   transition: object-position 9.5s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
