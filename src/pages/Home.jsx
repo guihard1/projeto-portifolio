@@ -67,7 +67,7 @@ export default function Home() {
   const [imgError, setImgError] = useState(false)
 
   return (
-    <div className="px-6 md:px-10">
+    <div className="px-4 sm:px-6 md:px-10 max-w-full overflow-hidden">
       {/* Hero Section */}
       <section className="flex min-h-screen flex-col justify-end pb-16 pt-32">
         <span className="text-xs uppercase tracking-widest opacity-50 block mb-4 font-mono">
@@ -276,9 +276,11 @@ export default function Home() {
               to="/works"
               className="group block overflow-hidden rounded-2xl border border-current/15 bg-gradient-to-br from-neutral-900 to-neutral-950 p-6 sm:p-8 text-white shadow-xl transition-all duration-500 hover:border-current/35 hover:scale-[1.01]"
             >
-              <div className="flex items-center justify-between text-xs font-mono opacity-70 mb-5">
-                <span>0{project.id} · {project.type}</span>
-                <span className="flex items-center gap-1 text-[11px] underline underline-offset-4 group-hover:opacity-100">
+              <div className="flex items-center justify-between text-xs font-mono opacity-70 mb-5 gap-2">
+                <span className="truncate max-w-[170px] xs:max-w-[220px] sm:max-w-none">
+                  0{project.id} · {project.type}
+                </span>
+                <span className="flex items-center gap-1 text-[11px] underline underline-offset-4 group-hover:opacity-100 shrink-0">
                   Ver detalhes <ArrowUpRight size={12} />
                 </span>
               </div>

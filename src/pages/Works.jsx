@@ -18,12 +18,12 @@ function ProjectMedia({ project, index, onActive, onOpenLightbox }) {
   }, [inView, index, onActive])
 
   return (
-    <div ref={ref} className="flex min-h-[auto] sm:min-h-screen items-center justify-center py-10 sm:py-16">
-      <div className="w-full max-w-lg sm:max-w-none">
+    <div ref={ref} className="flex min-h-[auto] sm:min-h-screen items-center justify-center py-6 sm:py-16">
+      <div className="w-full max-w-full sm:max-w-none min-w-0">
         {/* Card visual mockup */}
         <motion.div
           data-cursor
-          className={`group relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-current/15 bg-gradient-to-br ${project.gradient} p-5 sm:p-7 text-white shadow-2xl flex flex-col justify-between`}
+          className={`group relative min-h-[440px] sm:min-h-0 sm:aspect-[4/5] w-full overflow-hidden rounded-2xl border border-current/15 bg-gradient-to-br ${project.gradient} p-4 sm:p-7 text-white shadow-2xl flex flex-col justify-between`}
           animate={{
             opacity: inView ? 1 : 0.45,
             scale: inView ? 1 : 0.97,
@@ -31,62 +31,62 @@ function ProjectMedia({ project, index, onActive, onOpenLightbox }) {
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Card Topbar */}
-          <div className="flex items-center justify-between text-xs tracking-wider uppercase opacity-80 z-20">
-            <div className="flex items-center gap-2">
+          <div className="flex items-center justify-between text-xs tracking-wider uppercase opacity-80 z-20 gap-2">
+            <div className="flex items-center gap-2 shrink-0">
               <span className="size-2 rounded-full" style={{ backgroundColor: project.accentColor || '#38bdf8' }} />
               <span className="font-mono">0{project.id} / 0{projects.length}</span>
             </div>
-            <span className="rounded-full border border-white/20 px-2.5 py-0.5 text-[10px] font-mono bg-white/5 backdrop-blur-md">
+            <span className="rounded-full border border-white/20 px-2 sm:px-2.5 py-0.5 text-[9px] sm:text-[10px] font-mono bg-white/5 backdrop-blur-md truncate max-w-[150px] xs:max-w-[190px] sm:max-w-none">
               {project.type}
             </span>
           </div>
 
           {/* Central Stage: High-end Browser Frame */}
-          <div className="my-auto w-full z-10 py-3 sm:py-4">
+          <div className="my-auto w-full z-10 py-2.5 sm:py-4">
             <div className="overflow-hidden rounded-xl border border-white/15 bg-neutral-950/90 shadow-2xl backdrop-blur-md transition-all duration-500 group-hover:border-white/30">
               {/* Browser Header Bar */}
-              <div className="flex items-center justify-between border-b border-white/10 px-3.5 py-2.5 bg-white/[0.03]">
-                <div className="flex items-center gap-1.5">
-                  <span className="size-2.5 rounded-full bg-red-500/70" />
-                  <span className="size-2.5 rounded-full bg-yellow-500/70" />
-                  <span className="size-2.5 rounded-full bg-emerald-500/70" />
+              <div className="flex items-center justify-between border-b border-white/10 px-3 py-2 sm:px-3.5 sm:py-2.5 bg-white/[0.03]">
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <span className="size-2 sm:size-2.5 rounded-full bg-red-500/70" />
+                  <span className="size-2 sm:size-2.5 rounded-full bg-yellow-500/70" />
+                  <span className="size-2 sm:size-2.5 rounded-full bg-emerald-500/70" />
                 </div>
                 {/* URL Pill */}
-                <div className="flex items-center gap-1.5 rounded-md border border-white/10 bg-black/40 px-3 py-0.5 text-[11px] font-mono opacity-70">
-                  <Globe size={11} className="opacity-60" />
-                  <span className="truncate max-w-[170px] sm:max-w-[220px]">{project.mockupUrl || 'localhost:3000'}</span>
+                <div className="flex items-center gap-1.5 rounded-md border border-white/10 bg-black/40 px-2 sm:px-3 py-0.5 text-[10px] sm:text-[11px] font-mono opacity-70 min-w-0 mx-2">
+                  <Globe size={11} className="opacity-60 shrink-0" />
+                  <span className="truncate max-w-[110px] xs:max-w-[160px] sm:max-w-[220px]">{project.mockupUrl || 'localhost:3000'}</span>
                 </div>
-                <div className="w-8 flex justify-end">
+                <div className="w-5 sm:w-8 flex justify-end shrink-0">
                   <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 </div>
               </div>
 
               {/* Viewport Canvas: Terminal View, Real Screenshot, or Styled Wireframe Fallback */}
               {project.mockupType === 'terminal' ? (
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#0a0b0d] p-3.5 sm:p-5 flex flex-col justify-between font-mono">
+                <div className="relative aspect-auto sm:aspect-[16/10] w-full overflow-hidden bg-[#0a0b0d] p-3 sm:p-5 flex flex-col justify-between font-mono min-h-[220px]">
                   {/* Command prompt */}
-                  <div className="flex items-center gap-2 text-[11px] sm:text-xs text-emerald-400/90 border-b border-white/10 pb-2">
+                  <div className="flex items-center gap-2 text-[10px] sm:text-xs text-emerald-400/90 border-b border-white/10 pb-2">
                     <span className="text-white/40">$</span>
-                    <span className="text-white/90">php artisan girolando:dispatch-docs</span>
-                    <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse ml-auto" />
+                    <span className="text-white/90 truncate">php artisan girolando:dispatch-docs</span>
+                    <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse ml-auto shrink-0" />
                   </div>
 
                   {/* Execution pipeline */}
-                  <div className="space-y-1.5 sm:space-y-2 my-auto py-1">
+                  <div className="space-y-1.5 sm:space-y-2 my-auto py-2">
                     {project.pipeline?.map((p, idx) => (
-                      <div key={idx} className="flex items-center gap-2 text-[10px] sm:text-[11px] leading-tight">
-                        <span className="text-white/30">›</span>
-                        <span className="px-1.5 py-0.5 rounded text-[9px] bg-white/10 text-white/80 font-bold uppercase tracking-wider">
+                      <div key={idx} className="flex items-center gap-1.5 sm:gap-2 text-[9px] sm:text-[11px] leading-tight">
+                        <span className="text-white/30 shrink-0">›</span>
+                        <span className="px-1 sm:px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] bg-white/10 text-white/80 font-bold uppercase tracking-wider shrink-0">
                           {p.tag}
                         </span>
-                        <span className="text-white/70 truncate flex-1">{p.text}</span>
-                        <span className={`text-[10px] font-semibold ${p.color}`}>[{p.status}]</span>
+                        <span className="text-white/70 truncate flex-1 min-w-0">{p.text}</span>
+                        <span className={`text-[9px] sm:text-[10px] font-semibold shrink-0 ${p.color}`}>[{p.status}]</span>
                       </div>
                     ))}
                   </div>
 
                   {/* Terminal footer status */}
-                  <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[10px] text-white/40">
+                  <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[9px] sm:text-[10px] text-white/40">
                     <span className="flex items-center gap-1.5">
                       <span className="size-1.5 rounded-full bg-emerald-500 animate-ping" />
                       Worker Daemon Ativo
@@ -123,13 +123,13 @@ function ProjectMedia({ project, index, onActive, onOpenLightbox }) {
 
                       {/* Interactive hint for tall full-page screenshots */}
                       {project.isLongScreenshot ? (
-                        <div className="pointer-events-none absolute bottom-3 right-3 z-20 flex items-center gap-1.5 rounded-full border border-white/20 bg-black/70 px-2.5 py-1 text-[10px] font-mono backdrop-blur-md transition-opacity duration-300 group-hover:opacity-0 text-white/90">
+                        <div className="pointer-events-none absolute bottom-2 right-2 sm:bottom-3 sm:right-3 z-20 flex items-center gap-1.5 rounded-full border border-white/20 bg-black/70 px-2 sm:px-2.5 py-1 text-[9px] sm:text-[10px] font-mono backdrop-blur-md transition-opacity duration-300 group-hover:opacity-0 text-white/90">
                           <span className="size-1.5 rounded-full bg-sky-400 animate-pulse" />
-                          <span>Hover p/ rolar página ↓</span>
+                          <span>Hover p/ rolar ↓</span>
                         </div>
                       ) : (
                         /* Expand button badge for standard screenshots */
-                        <div className="pointer-events-none absolute bottom-2.5 right-2.5 z-20 flex items-center gap-1 rounded-md border border-white/20 bg-black/75 px-2 py-0.5 text-[10px] font-mono opacity-0 transition-opacity duration-300 group-hover:opacity-100 text-white/90">
+                        <div className="pointer-events-none absolute bottom-2 right-2 sm:bottom-2.5 sm:right-2.5 z-20 flex items-center gap-1 rounded-md border border-white/20 bg-black/75 px-2 py-0.5 text-[9px] sm:text-[10px] font-mono opacity-0 transition-opacity duration-300 group-hover:opacity-100 text-white/90">
                           <Maximize2 size={10} />
                           <span>Expandir</span>
                         </div>
@@ -137,25 +137,25 @@ function ProjectMedia({ project, index, onActive, onOpenLightbox }) {
                     </>
                   ) : (
                   /* Stylized Technical Wireframe Fallback */
-                  <div className="flex h-full w-full flex-col items-center justify-center p-6 text-center relative overflow-hidden">
+                  <div className="flex h-full w-full flex-col items-center justify-center p-4 sm:p-6 text-center relative overflow-hidden">
                     <div
                       className="absolute -top-12 -right-12 size-40 rounded-full blur-3xl opacity-20 pointer-events-none"
                       style={{ backgroundColor: project.accentColor || '#38bdf8' }}
                     />
                     <div
-                      className="mb-3 flex size-12 sm:size-14 items-center justify-center rounded-xl border border-white/20 bg-white/5 backdrop-blur-md transition-transform duration-500 group-hover:scale-110"
+                      className="mb-2 sm:mb-3 flex size-10 sm:size-14 items-center justify-center rounded-xl border border-white/20 bg-white/5 backdrop-blur-md transition-transform duration-500 group-hover:scale-110"
                       style={{ color: project.accentColor || '#fff' }}
                     >
-                      <Icon size={24} strokeWidth={1.5} />
+                      <Icon size={22} strokeWidth={1.5} />
                     </div>
-                    <h4 className="text-sm sm:text-base font-medium tracking-tight text-white max-w-xs">
+                    <h4 className="text-xs sm:text-base font-medium tracking-tight text-white max-w-xs truncate px-2">
                       {project.title}
                     </h4>
-                    <p className="mt-1 text-[10px] font-mono opacity-50 uppercase tracking-widest">
+                    <p className="mt-0.5 sm:mt-1 text-[9px] sm:text-[10px] font-mono opacity-50 uppercase tracking-widest">
                       {project.context}
                     </p>
-                    <div className="mt-3 flex items-center gap-1 text-[10px] font-mono opacity-40 rounded-full border border-white/10 px-2.5 py-0.5">
-                      <span>Screenshot: {project.image}</span>
+                    <div className="mt-2 sm:mt-3 flex items-center gap-1 text-[9px] sm:text-[10px] font-mono opacity-40 rounded-full border border-white/10 px-2 sm:px-2.5 py-0.5 max-w-[210px] truncate">
+                      <span className="truncate">Screenshot: {project.image}</span>
                     </div>
                   </div>
                 )}
@@ -165,31 +165,33 @@ function ProjectMedia({ project, index, onActive, onOpenLightbox }) {
           </div>
 
           {/* Card Bottom: Quick Stack Badges */}
-          <div className="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs z-20">
-            <span className="opacity-70 font-mono text-[11px]">{project.tags.slice(0, 3).join(' · ')}</span>
-            <span className="font-mono text-[10px] opacity-40 uppercase">CASE STUDY</span>
+          <div className="pt-2 sm:pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs z-20">
+            <span className="opacity-70 font-mono text-[10px] sm:text-[11px] truncate max-w-[190px] xs:max-w-[230px] sm:max-w-none">
+              {project.tags.slice(0, 3).join(' · ')}
+            </span>
+            <span className="font-mono text-[9px] sm:text-[10px] opacity-40 uppercase shrink-0">CASE STUDY</span>
           </div>
         </motion.div>
 
         {/* Mobile: description sits under the media */}
         <div className="mt-6 md:hidden">
-          <div className="flex items-center gap-2 text-xs opacity-60 font-mono">
-            <span>0{project.id}</span>
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs opacity-60 font-mono">
+            <span className="font-semibold text-current opacity-90">0{project.id} / 0{projects.length}</span>
             <span>—</span>
             <span>{project.context}</span>
-            <span>·</span>
-            <span>{project.type}</span>
+            <span className="hidden sm:inline">·</span>
+            <span className="w-full sm:w-auto opacity-75">{project.type}</span>
           </div>
-          <h2 className="mt-2 text-2xl sm:text-3xl font-medium tracking-tight">{project.title}</h2>
-          <p className="mt-3 text-sm sm:text-base opacity-75 leading-relaxed">{project.description}</p>
-          <div className="mt-4 flex flex-wrap gap-2">
+          <h2 className="mt-2 text-xl sm:text-3xl font-medium tracking-tight">{project.title}</h2>
+          <p className="mt-2.5 text-sm sm:text-base opacity-75 leading-relaxed">{project.description}</p>
+          <div className="mt-3.5 flex flex-wrap gap-1.5 sm:gap-2">
             {project.tags.map((t) => (
-              <span key={t} className="rounded-full border border-current/25 px-2.5 py-0.5 text-xs bg-current/5">
+              <span key={t} className="rounded-full border border-current/25 px-2.5 py-0.5 text-[11px] sm:text-xs bg-current/5">
                 {t}
               </span>
             ))}
           </div>
-          <div className="mt-5 pt-4 border-t border-current/15">
+          <div className="mt-4 pt-3.5 border-t border-current/15">
             <a
               href={profile.github}
               target="_blank"
@@ -220,19 +222,19 @@ export default function Works() {
   }, [])
 
   return (
-    <div className="px-6 md:px-10">
-      {/* Editorial Header (No broken <sup>) */}
-      <header className="pb-16 pt-36 border-b border-current/15">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+    <div className="px-4 sm:px-6 md:px-10 max-w-full overflow-hidden">
+      {/* Editorial Header */}
+      <header className="pb-12 sm:pb-16 pt-28 sm:pt-36 border-b border-current/15">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6">
           <div>
-            <span className="text-xs uppercase tracking-widest opacity-50 block mb-3 font-mono">
+            <span className="text-xs uppercase tracking-widest opacity-50 block mb-2 sm:mb-3 font-mono">
               (Portfólio Selecionado)
             </span>
-            <h1 className="text-[clamp(3.5rem,10vw,9.5rem)] font-medium leading-[0.88] tracking-tighter">
+            <h1 className="text-[clamp(2.75rem,9vw,9.5rem)] font-medium leading-[0.88] tracking-tighter">
               Works
             </h1>
           </div>
-          <div className="flex items-center gap-4 text-sm opacity-60 pb-2 font-mono">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm opacity-60 pb-1 sm:pb-2 font-mono">
             <span>0{projects.length} PROJETOS EM DESTAQUE</span>
             <span>·</span>
             <span>2024 — PRESENTE</span>
@@ -320,7 +322,7 @@ export default function Works() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={() => setLightboxProject(null)}
-            className="fixed inset-0 z-[150] flex items-center justify-center bg-black/85 p-4 sm:p-8 backdrop-blur-md cursor-zoom-out"
+            className="fixed inset-0 z-[150] flex items-center justify-center bg-black/85 p-3 sm:p-8 backdrop-blur-md cursor-zoom-out"
           >
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
@@ -331,20 +333,20 @@ export default function Works() {
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between border-b border-white/10 px-5 py-3.5 bg-white/[0.04]">
-                <div className="flex items-center gap-3">
+              <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 sm:px-5 sm:py-3.5 bg-white/[0.04] gap-2">
+                <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
                   <span
-                    className="size-2.5 rounded-full"
+                    className="size-2 sm:size-2.5 rounded-full shrink-0"
                     style={{ backgroundColor: lightboxProject.accentColor || '#38bdf8' }}
                   />
-                  <span className="font-mono text-xs text-white/80 tracking-wider uppercase">
+                  <span className="font-mono text-[11px] sm:text-xs text-white/80 tracking-wider uppercase truncate max-w-[210px] sm:max-w-md">
                     {lightboxProject.title} · {lightboxProject.type}
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={() => setLightboxProject(null)}
-                  className="rounded-lg p-1 text-white/70 hover:bg-white/10 hover:text-white transition-colors"
+                  className="rounded-lg p-1 text-white/70 hover:bg-white/10 hover:text-white transition-colors shrink-0"
                   aria-label="Fechar modal"
                 >
                   <X size={18} />
