@@ -18,7 +18,7 @@ export default function Layout({ children }) {
   }, [])
 
   return (
-    <ReactLenis root options={{ lerp: 0.09, smoothWheel: true }}>
+    <ReactLenis root options={{ lerp: 0.1, duration: 1.2, smoothWheel: true, touchMultiplier: 1.5 }}>
       <CustomCursor />
       <Navbar />
       <div className="relative">{children}</div>

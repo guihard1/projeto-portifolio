@@ -1,5 +1,7 @@
-import { ArrowUpRight, FileDown } from 'lucide-react'
+import { useState } from 'react'
+import { ArrowUpRight, Check, Copy, FileDown } from 'lucide-react'
 import { FadeUp, MaskText } from '../components/Reveal'
+import Magnetic from '../components/Magnetic'
 import {
   courses,
   education,
@@ -23,6 +25,14 @@ function Row({ label, children }) {
 const external = { target: '_blank', rel: 'noreferrer' }
 
 export default function About() {
+  const [copied, setCopied] = useState(false)
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(profile.email)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2500)
+  }
+
   return (
     <div className="px-6 md:px-10">
       <section className="flex min-h-[75vh] flex-col justify-end gap-10 pb-20 pt-36">
@@ -115,27 +125,58 @@ export default function About() {
 
       <Row label="(Contato &amp; Redes)">
         <FadeUp>
-          <span className="text-xs font-mono uppercase tracking-wider opacity-50 block mb-2">E-mail Direto</span>
-          <a
-            href={`mailto:${profile.email}`}
-            className="break-all text-[clamp(1.5rem,4vw,3.5rem)] font-medium tracking-tight underline-offset-8 hover:underline"
-          >
-            {profile.email}
-          </a>
-          <div className="mt-8 flex flex-wrap items-center gap-4 sm:gap-6 text-sm font-mono">
+          <div className="flex items-center gap-3 mb-2">
+            <span className="text-xs font-mono uppercase tracking-wider opacity-50 block">E-mail Direto</span>
+            {copied && (
+              <span className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full animate-fade-in">
+                <Check size={11} /> Copiado para a área de transferência!
+              </span>
+            )}
+          </div>
+
+          <div className="flex flex-wrap items-baseline gap-4">
             <a
-              href={profile.cvUrl}
-              download="Curriculo-Luiz-Guilherme.pdf"
-              className="inline-flex items-center gap-2 rounded-full border border-current/30 px-4 py-2 text-xs font-mono uppercase tracking-wider hover:bg-current hover:text-paper dark:hover:text-ink transition-colors"
+              href={`mailto:${profile.email}`}
+              className="break-all text-[clamp(1.5rem,4vw,3.5rem)] font-medium tracking-tight underline-offset-8 hover:underline"
             >
-              <FileDown size={14} /> Baixar CV em PDF
+              {profile.email}
             </a>
-            <a href={profile.linkedin} {...external} className="inline-flex items-center gap-1.5 underline underline-offset-4 hover:opacity-75">
-              LinkedIn <ArrowUpRight size={16} />
-            </a>
-            <a href={profile.github} {...external} className="inline-flex items-center gap-1.5 underline underline-offset-4 hover:opacity-75">
-              GitHub <ArrowUpRight size={16} />
-            </a>
+
+            <Magnetic strength={0.3}>
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                className="inline-flex items-center gap-1.5 rounded-full border border-current/20 bg-current/5 px-3 py-1.5 text-xs font-mono hover:bg-current/10 transition-colors"
+                title="Copiar e-mail"
+              >
+                {copied ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
+                <span>{copied ? 'Copiado' : 'Copiar'}</span>
+              </button>
+            </Magnetic>
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center gap-4 sm:gap-6 text-sm font-mono">
+            <Magnetic strength={0.25}>
+              <a
+                href={profile.cvUrl}
+                download="Curriculo-Luiz-Guilherme.pdf"
+                className="inline-flex items-center gap-2 rounded-full border border-current/30 px-4 py-2 text-xs font-mono uppercase tracking-wider hover:bg-blue-400 hover:text-paper dark:hover:text-ink transition-colors"
+              >
+                <FileDown size={14} /> Baixar CV em PDF
+              </a>
+            </Magnetic>
+
+            <Magnetic strength={0.25}>
+              <a href={profile.linkedin} {...external} className="inline-flex items-center gap-1.5 underline underline-offset-4 hover:opacity-75">
+                LinkedIn <ArrowUpRight size={16} />
+              </a>
+            </Magnetic>
+
+            <Magnetic strength={0.25}>
+              <a href={profile.github} {...external} className="inline-flex items-center gap-1.5 underline underline-offset-4 hover:opacity-75">
+                GitHub <ArrowUpRight size={16} />
+              </a>
+            </Magnetic>
           </div>
           <p className="mt-6 text-xs font-mono opacity-60">{profile.location} · Disponível para atuações remotas ou híbridas</p>
         </FadeUp>

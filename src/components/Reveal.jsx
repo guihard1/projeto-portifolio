@@ -9,10 +9,10 @@ export function FadeUp({ children, delay = 0, className = '', as = 'div' }) {
   return (
     <Tag
       className={className}
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-10% 0px' }}
-      transition={{ duration: 0.9, ease: EASE, delay }}
+      viewport={{ once: true, margin: '0px 0px -40px 0px' }}
+      transition={{ duration: 0.75, ease: EASE, delay }}
     >
       {children}
     </Tag>
@@ -26,7 +26,7 @@ export function FadeUp({ children, delay = 0, className = '', as = 'div' }) {
  */
 export function MaskText({ children, className = '', delay = 0 }) {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '0px 0px -10% 0px' })
+  const inView = useInView(ref, { once: true, margin: '0px 0px -40px 0px' })
 
   return (
     <span
@@ -37,7 +37,7 @@ export function MaskText({ children, className = '', delay = 0 }) {
         className="block"
         initial={{ y: '130%' }}
         animate={{ y: inView ? 0 : '130%' }}
-        transition={{ duration: 1.1, ease: EASE, delay }}
+        transition={{ duration: 0.95, ease: EASE, delay }}
       >
         {children}
       </motion.span>
@@ -52,7 +52,7 @@ export function MaskText({ children, className = '', delay = 0 }) {
  */
 export function MaskReveal({ children, className = '' }) {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '0px 0px -10% 0px' })
+  const inView = useInView(ref, { once: true, margin: '0px 0px -40px 0px' })
 
   return (
     <div ref={ref} className={className}>
@@ -60,13 +60,13 @@ export function MaskReveal({ children, className = '' }) {
         className="h-full w-full overflow-hidden"
         initial={{ clipPath: 'inset(100% 0% 0% 0%)' }}
         animate={{ clipPath: inView ? 'inset(0% 0% 0% 0%)' : 'inset(100% 0% 0% 0%)' }}
-        transition={{ duration: 1.2, ease: EASE }}
+        transition={{ duration: 1.0, ease: EASE }}
       >
         <motion.div
           className="h-full w-full"
-          initial={{ scale: 1.25 }}
-          animate={{ scale: inView ? 1 : 1.25 }}
-          transition={{ duration: 1.6, ease: EASE }}
+          initial={{ scale: 1.15 }}
+          animate={{ scale: inView ? 1 : 1.15 }}
+          transition={{ duration: 1.3, ease: EASE }}
         >
           {children}
         </motion.div>

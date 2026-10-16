@@ -6,7 +6,7 @@ const TRAIL_LENGTH = 18
 const INTERACTIVE = 'a, button, input, textarea, select, [data-cursor]'
 
 /** R3F trail: a chain of discs, each easing toward the one before it. */
-function Trail({ mouse, hovered }) {
+function Trail({ mouse, hovered, visible }) {
   const size = useThree((s) => s.size)
   const meshes = useRef([])
   const points = useMemo(
@@ -18,13 +18,13 @@ function Trail({ mouse, hovered }) {
 
   useFrame(() => {
     const m = mouse.current
-    if (!m.active) return
+    const isVis = visible.current && m.active
 
     // Screen px -> orthographic world (1 unit = 1px, origin at center, y up)
     const tx = m.x - size.width / 2
     const ty = -(m.y - size.height / 2)
 
-    if (!ready.current) {
+    if (!ready.current && isVis) {
       points.forEach((p) => {
         p.x = tx
         p.y = ty
@@ -32,12 +32,12 @@ function Trail({ mouse, hovered }) {
       ready.current = true
     }
 
-    boost.current += ((hovered.current ? 1.8 : 1) - boost.current) * 0.1
+    boost.current += ((hovered.current ? 1.5 : 1) - boost.current) * 0.15
 
     let px = tx
     let py = ty
     points.forEach((p, i) => {
-      const ease = i === 0 ? 0.3 : 0.45
+      const ease = i === 0 ? 0.38 : 0.5
       p.x += (px - p.x) * ease
       p.y += (py - p.y) * ease
       px = p.x
@@ -47,8 +47,10 @@ function Trail({ mouse, hovered }) {
       if (!mesh) return
       const t = 1 - i / TRAIL_LENGTH
       mesh.position.set(p.x, p.y, 0)
-      mesh.scale.setScalar(Math.max(0.5, 9 * t * boost.current))
-      mesh.material.opacity = t * 0.55
+      mesh.scale.setScalar(Math.max(0.5, 8 * t * boost.current))
+      // Fade out smoothly if cursor leaves window or isn't active
+      const targetOpacity = isVis ? t * 0.5 : 0
+      mesh.material.opacity += (targetOpacity - mesh.material.opacity) * 0.2
     })
   })
 
@@ -66,14 +68,17 @@ function Trail({ mouse, hovered }) {
 
 export default function CustomCursor() {
   const [enabled, setEnabled] = useState(false)
+  const [visible, setVisible] = useState(false)
   const [hovered, setHovered] = useState(false)
   const mouse = useRef({ x: 0, y: 0, active: false })
   const hoveredRef = useRef(false)
+  const visibleRef = useRef(false)
 
+  // Highly responsive, organic spring configuration
   const x = useMotionValue(-100)
   const y = useMotionValue(-100)
-  const sx = useSpring(x, { stiffness: 700, damping: 45, mass: 0.4 })
-  const sy = useSpring(y, { stiffness: 700, damping: 45, mass: 0.4 })
+  const sx = useSpring(x, { stiffness: 850, damping: 50, mass: 0.22 })
+  const sy = useSpring(y, { stiffness: 850, damping: 50, mass: 0.22 })
 
   // Only on devices with a fine pointer (mouse / trackpad)
   useEffect(() => {
@@ -88,6 +93,10 @@ export default function CustomCursor() {
     if (!enabled) return
 
     const onMove = (e) => {
+      if (!visibleRef.current) {
+        visibleRef.current = true
+        setVisible(true)
+      }
       mouse.current = { x: e.clientX, y: e.clientY, active: true }
       x.set(e.clientX)
       y.set(e.clientY)
@@ -97,14 +106,36 @@ export default function CustomCursor() {
         setHovered(isHover)
       }
     }
-    window.addEventListener('mousemove', onMove)
-    return () => window.removeEventListener('mousemove', onMove)
+
+    const onLeave = () => {
+      visibleRef.current = false
+      setVisible(false)
+      mouse.current.active = false
+    }
+
+    const onEnter = () => {
+      visibleRef.current = true
+      setVisible(true)
+    }
+
+    window.addEventListener('mousemove', onMove, { passive: true })
+    document.addEventListener('mouseleave', onLeave)
+    document.addEventListener('mouseenter', onEnter)
+
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      document.removeEventListener('mouseleave', onLeave)
+      document.removeEventListener('mouseenter', onEnter)
+    }
   }, [enabled, x, y])
 
   if (!enabled) return null
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[100] mix-blend-difference">
+    <div
+      className="pointer-events-none fixed inset-0 z-[100] mix-blend-difference transition-opacity duration-300"
+      style={{ opacity: visible ? 1 : 0 }}
+    >
       <Canvas
         orthographic
         camera={{ zoom: 1, position: [0, 0, 100] }}
@@ -113,18 +144,18 @@ export default function CustomCursor() {
         style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}
         events={undefined}
       >
-        <Trail mouse={mouse} hovered={hoveredRef} />
+        <Trail mouse={mouse} hovered={hoveredRef} visible={visibleRef} />
       </Canvas>
 
       <motion.div className="fixed top-0 left-0" style={{ x: sx, y: sy }}>
         <motion.div
           className="-translate-x-1/2 -translate-y-1/2 rounded-full bg-white"
           animate={{
-            width: hovered ? 72 : 10,
-            height: hovered ? 72 : 10,
+            width: hovered ? 56 : 10,
+            height: hovered ? 56 : 10,
             opacity: hovered ? 0.9 : 1,
           }}
-          transition={{ type: 'spring', stiffness: 300, damping: 24 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 28 }}
         />
       </motion.div>
     </div>

@@ -1,10 +1,11 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { motion, useIsPresent } from 'framer-motion'
 import { useLenis } from 'lenis/react'
+import AmbientGlow from './AmbientGlow'
 import { getTransitionOrigin, resetTransitionOrigin } from '../hooks/useTransitionOrigin'
 
-const EASE = [0.76, 0, 0.24, 1]
-const DURATION = 1
+const EASE = [0.65, 0, 0.35, 1]
+const DURATION = 0.85
 
 /**
  * "Modal expansion": the incoming page is revealed through a circle that grows
@@ -47,7 +48,7 @@ export default function PageTransition({ children }) {
   return (
     <motion.div
       ref={ref}
-      className="min-h-screen bg-paper dark:bg-ink"
+      className="relative min-h-screen bg-paper dark:bg-ink"
       style={
         isPresent
           ? { position: 'relative', zIndex: 10 }
@@ -63,7 +64,8 @@ export default function PageTransition({ children }) {
       exit={{ filter: 'brightness(0.55)' }}
       transition={{ duration: DURATION, ease: EASE }}
     >
-      {children}
+      <AmbientGlow />
+      <div className="relative z-10">{children}</div>
     </motion.div>
   )
 }
